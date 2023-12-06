@@ -7,7 +7,6 @@ import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.BookRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +32,8 @@ public class BookServiceImpl implements BookService {
     }
 
     public BookDto getBookById(Long id) {
-        Optional<Book> byId = bookRepository.findById(id);
-        return bookMapper
-                .toDto(byId.orElseThrow(() ->
-                        new EntityNotFoundException("Cannot get book by id: " + id)));
+        return bookRepository.findById(id)
+                .map(bookMapper::toDto)
+                .orElseThrow(() -> new EntityNotFoundException("Cannot get book by id: " + id));
     }
 }
