@@ -1,5 +1,6 @@
 package com.example.bookstore.repository;
 
+import com.example.bookstore.exception.EntityNotFoundException;
 import com.example.bookstore.model.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -27,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Cannot save book to database: " + book, ex);
+            throw new EntityNotFoundException("Cannot save book to database: " + book, ex);
         }
     }
 
@@ -37,7 +38,7 @@ public class BookRepositoryImpl implements BookRepository {
             Book book = entityManager.find(Book.class, id);
             return Optional.ofNullable(book);
         } catch (Exception e) {
-            throw new RuntimeException("Cannot find data by id from database", e);
+            throw new EntityNotFoundException("Cannot find book by id from database: " + id, e);
         }
     }
 
@@ -46,7 +47,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery("SELECT b from Book b", Book.class).getResultList();
         } catch (Exception ex) {
-            throw new RuntimeException("Cannot find all books from database", ex);
+            throw new EntityNotFoundException("Cannot find all books from database", ex);
         }
     }
 }
