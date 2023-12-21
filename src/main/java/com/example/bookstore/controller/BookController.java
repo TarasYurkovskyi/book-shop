@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class BookController {
 
     @Operation(summary = "Get all books",
             description = "Retrieve a list of all books with pagination support.")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping
     public List<BookDto> getAll(Pageable pageable) {
         return bookService.getAll(pageable);
@@ -36,6 +38,7 @@ public class BookController {
 
     @Operation(summary = "Get a book by ID",
             description = "Retrieve a book based on its unique identifier.")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);
@@ -43,6 +46,7 @@ public class BookController {
 
     @Operation(summary = "Create a new book",
             description = "Create a new book with the provided information.")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto createBookRequestDto) {
         return bookService.createBook(createBookRequestDto);
@@ -50,6 +54,7 @@ public class BookController {
 
     @Operation(summary = "Update a book by id",
             description = "Update a book by specified id with the provided information.")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public BookDto update(@PathVariable Long id,
                           @RequestBody @Valid CreateBookRequestDto requestDto) {
@@ -58,6 +63,7 @@ public class BookController {
 
     @Operation(summary = "Delete a book by id", description = "Delete a book by id.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         bookService.deleteById(id);
