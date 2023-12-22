@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: modify-users_roles-table
+      author: Taras
+      changes:
+        - dropColumn:
+            tableName: users_roles
+            columnName: id
