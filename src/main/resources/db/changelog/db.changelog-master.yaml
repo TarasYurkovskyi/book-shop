@@ -17,5 +17,7 @@ databaseChangeLog:
       file: db/changelog/changes/08-insert-more-data-to-users-roles-table.yaml
   - include:
       file: db/changelog/changes/09-drop-column-id-in-users-roles-table.yaml
+  - include:
+      file: db/changelog/changes/11-add-unique-constraint-to-roles-table.yaml
   #- include:
   #   file: db/changelog/changes/10-add-constraints-to-users-roles-table.yaml

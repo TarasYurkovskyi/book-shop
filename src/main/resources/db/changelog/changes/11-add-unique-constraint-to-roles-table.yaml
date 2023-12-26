@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+       id: add_unique_constraint_to_name_column
+       author: your_author_name
+       changes:
+        - addUniqueConstraint:
+           constraintName: unique_name_constraint
+           tableName: roles
+           columnNames: name
+
