@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-books_categories-table
-      author: Taras
+      author: Taras Yurkovskyi
       changes:
         - createTable:
             tableName: books_categories
@@ -11,7 +11,6 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     foreignKeyName: fk_books_categories_book_id
-                    nullable: false
                     references: books(id)
                     deleteCascade: true
                     primaryKey: true
@@ -20,7 +19,6 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     foreignKeyName: fk_books_categories_category_id
-                    nullable: false
                     references: categories(id)
                     deleteCascade: true
                     primaryKey: true

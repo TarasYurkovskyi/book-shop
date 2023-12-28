@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: insert-categories-to-categories-table
-      author: Taras
+      author: Taras Yurkovskyi
       changes:
         - insert:
             tableName: categories
