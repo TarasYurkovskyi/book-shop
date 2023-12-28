@@ -7,4 +7,3 @@ databaseChangeLog:
            constraintName: unique_name_constraint
            tableName: roles
            columnNames: name
-
