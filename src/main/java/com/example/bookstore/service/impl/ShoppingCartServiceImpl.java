@@ -12,6 +12,7 @@ import com.example.bookstore.model.ShoppingCart;
 import com.example.bookstore.repository.BookRepository;
 import com.example.bookstore.repository.CartItemRepository;
 import com.example.bookstore.repository.ShoppingCartRepository;
+import com.example.bookstore.repository.UserRepository;
 import com.example.bookstore.service.ShoppingCartService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,16 @@ import org.springframework.stereotype.Service;
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final CartItemRepository cartItemRepository;
+    private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final ShoppingCartMapper shoppingCartMapper;
     private final CartItemMapper cartItemMapper;
 
     @Override
     public ShoppingCartDto getShoppingCart(String email) {
-        return shoppingCartMapper.toDto(shoppingCartRepository.findByEmail(email));
+        return shoppingCartMapper.toDto(shoppingCartRepository.findByEmail(email).orElseThrow(
+                () -> new EntityNotFoundException("Cannot get shopping cart by email: " + email)
+        ));
     }
 
     @Override
@@ -41,9 +45,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         cartItem.setBook(bookById);
 
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(id).orElseThrow(
-                () -> new EntityNotFoundException("Cannot get shopping cart by id: " + id)
-        );
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(id).orElseGet(() -> {
+            ShoppingCart newShoppingCart = new ShoppingCart();
+            newShoppingCart.setUser(userRepository.findById(id).orElseThrow(
+                    () -> new EntityNotFoundException("Cannot find user by ID: " + id)
+            ));
+            shoppingCartRepository.save(newShoppingCart);
+            return newShoppingCart;
+        });
         cartItem.setShoppingCart(shoppingCart);
         cartItem.setQuantity(requestDto.getQuantity());
         CartItem savedItem = cartItemRepository.save(cartItem);
