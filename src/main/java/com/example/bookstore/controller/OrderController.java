@@ -34,7 +34,7 @@ public class OrderController {
     private final OrderItemService orderItemService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     @Operation(summary = "Place an order", description = "Place an order")
     public OrderResponseDto placeOrder(
@@ -45,7 +45,7 @@ public class OrderController {
         return orderService.placeOrder(user, requestDto);
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
     @Operation(summary = "Get orders history", description = "Get orders history")
     public List<OrderResponseDto> getOrdersHistory(
@@ -67,7 +67,7 @@ public class OrderController {
         return orderService.updateOrderStatus(id, requestDto);
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{orderId}/items")
     @Operation(summary = "Get orders history", description = "Get a list of all orders")
     public List<OrderItemResponseDto> getAllOrderItemsFromOrder(
@@ -77,7 +77,7 @@ public class OrderController {
         return orderItemService.getAllOrderItemsFromOrder(orderId, pageable);
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{orderId}/items/{itemId}")
     @Operation(summary = "Get a specific item from a certain order",
             description = "Get a specific item from a certain order")

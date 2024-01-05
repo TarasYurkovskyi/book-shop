@@ -19,11 +19,15 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.type.SqlTypes;
 
 @Entity
 @NoArgsConstructor
 @Data
+@SQLDelete(sql = "UPDATE orders c SET c.is_deleted = true WHERE c.id=?")
+@Where(clause = "is_deleted = false")
 @Table(name = "orders")
 public class Order {
     @Id
@@ -48,6 +52,8 @@ public class Order {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> orderItems;
+    @Column(nullable = false)
+    private boolean isDeleted = false;
 
     public enum Status {
         COMPLETED,
