@@ -17,10 +17,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 @Entity
+@Accessors(chain = true)
 @NoArgsConstructor
 @Data
 @SQLDelete(sql = "UPDATE books SET is_deleted = true WHERE id=?")

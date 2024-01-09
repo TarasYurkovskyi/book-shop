@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-price-datatype-in-books-table
+      author: Taras Yurkovskyi
+      changes:
+        - modifyDataType:
+            tableName: books
+            columnName: price
+            newDataType: decimal(10,2)
