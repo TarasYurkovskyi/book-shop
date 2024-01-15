@@ -6,8 +6,7 @@ import java.util.Set;
 import lombok.Data;
 
 @Data
-public class
-OrderResponseDto {
+public class OrderResponseDto {
     private Long id;
     private Long userId;
     private LocalDateTime orderDate;
