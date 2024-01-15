@@ -15,7 +15,7 @@ Facilitating the completion of orders by processing the contents of the carts.
 Oversight and management of user orders.
 Providing administrators with tools to monitor and handle the entire order fulfillment process.
 ## Technologies used
-Core Technologies:
+### Core Technologies:
 * ***Java***
 * ***Maven***
 ### Spring Framework:
