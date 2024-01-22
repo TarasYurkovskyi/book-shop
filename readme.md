@@ -71,3 +71,12 @@ Providing administrators with tools to monitor and handle the entire order fulfi
 Initially, comprehending the entirety of the application's architecture posed a considerable challenge. However, through persistent attempts and dedicating a substantial amount of time to research and consulting with experienced professionals, I successfully identified a suitable structure.
 Additionally, delving into Spring Security proved to be a demanding endeavor.
 Regardless of the complexity, with perseverance, I eventually mastered its configuration for application integration. Despite encountering formidable challenges, I must acknowledge that crafting this project was an immensely gratifying experience. I eagerly look forward to further opportunities for practice and refinement.
+## Possible improvements
+1. **Deployment on AWS:**
+- Examine the possibility of deploying the application using Amazon Web Services (AWS) servers. Utilizing AWS infrastructure has the potential to improve scalability, reliability, and performance, thereby strengthening the overall hosting solution.
+2. **Create Telegram Bot for Sending Notifications:**
+- Build a Telegram bot for efficient notification delivery. Define the bot's capabilities, such as handling system alerts, updates, and user-specific messages. Ensure secure communication, implement user interaction for subscription preferences, and conduct thorough testing for reliable performance.
+3. **Implement Payment Using Stripe API:**
+- Enable payment functionality by integrating the Stripe API. Implement secure and seamless transactions, leveraging Stripe's robust payment infrastructure. Ensure adherence to industry standards for payment security and provide a smooth user experience throughout the payment process.
+4. **Comprehensive Test Coverage:**
+- Enhance test coverage by creating additional unit, integration, and end-to-end tests. Comprehensive testing helps identify and address potential issues, ensuring a robust and reliable application.
